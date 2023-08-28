@@ -12,7 +12,7 @@ from .auth import AuthError, requires_auth
 
 @app.route('/')
 def home() :
-  login = "<a href='https://moaz.uk.auth0.com/authorize?audience=restaurant&response_type=token&client_id=DribS2kVibf9SFkcTFNmOoTWQTNA1WwD&redirect_uri=http://127.0.0.1:5000/'>Log in here</a>"
+  login = "<a href='https://moaz.uk.auth0.com/authorize?audience=restaurant&response_type=token&client_id=DribS2kVibf9SFkcTFNmOoTWQTNA1WwD&redirect_uri=https://capstone-for-nd-udacity.onrender.com/'>Log in here</a>"
   return login
 
 @app.route('/the-food-detail')
