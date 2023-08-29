@@ -123,7 +123,7 @@ def update_the_food(payload, id):
   })
 
 @app.route('/food-items/<int:id>', methods=['PATCH'])
-@requires_auth('payload, id')
+@requires_auth('patch:data')
 def update_food_items(payload, id):
   #get data in link
   data = request.get_json()

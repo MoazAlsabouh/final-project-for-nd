@@ -1,7 +1,6 @@
 # final-project-for-nd
 .login here
-https://moaz.uk.auth0.com/authorize?audience=restaurant&
-response_type=token&client_id=DribS2kVibf9SFkcTFNmOoTWQTNA1WwD&redirect_uri=http://127.0.0.1:5000/
+https://moaz.uk.auth0.com/authorize?audience=restaurant&response_type=token&client_id=DribS2kVibf9SFkcTFNmOoTWQTNA1WwD&redirect_uri=https://capstone-for-nd-udacity.onrender.com/
 
 
 '''
@@ -9,9 +8,13 @@ Barista account
 User: barista2@udacity.com
 password: udacity123*
 
+this role acsees onle get
+
 Manager account
 User: restaurant_manager@udacity.com
 password: udacity123*
+
+this role acsees get , post, path and delete
 '''
 
 I did not have enough time to build a complete website with Vue.js, so I made a restaurant management system that contains food items and the food itself. There are two ranks, the first is entitled to make all the modifications, and the second can only read the data
@@ -21,11 +24,60 @@ All tests are in Postman's file
 link in render host
 https://capstone-for-nd-udacity.onrender.com/
 
+github repo
+https://github.com/MoazAlsabouh/final-project-for-nd
 
+1-
+https://capstone-for-nd-udacity.onrender.com/
+http://127.0.0.1:5000/
+This endpoint is unsecured and public with a link to login and get a token
 
+-2
+https://capstone-for-nd-udacity.onrender.com/the-food-detail
+http://127.0.0.1:5000/the-food-detail
+This endpoint accepts get requests and returns JSON data about our menu
+Everyone who owns the Barista and Manager roles has access to it
 
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVaNUVKVHlkbDZQNnBOOEVYZ3FmWiJ9.eyJpc3MiOiJodHRwczovL21vYXoudWsuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTAzMTI1MDcxMTE3NTIxMTY5NDM1IiwiYXVkIjoicmVzdGF1cmFudCIsImlhdCI6MTY5MzI1MjAyMywiZXhwIjoxNjkzMzM4NDIzLCJhenAiOiJEcmliUzJrVmliZjlTRmtjVEZObU9vVFdRVE5BMVd3RCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmRhdGEiLCJnZXQ6ZGF0YSIsInBhdGNoOmRhdGEiLCJwb3N0OmRhdGEiXX0.OOxOFdbiKq5F7y87jr021Xg2HDXRup7KAg7REfI4h4iiV0iYb4G1F7ENrpwaIU0CsdpUPCxjsuJl0Xz5JdduRhhhMmY6piFTP0ZAfR7gCsmOVxuExurqInZ095JiatI-Q9TIJON3AbSl3mxnNYdXwTqSEAPvi0jKcSZk8TGmNTHl42ZGRjWA_amyUnsh0r5MluBIn_hSzVGsNcpYReeRo8OvKWo_4TdMsahvHXpyOt_fYVF4lj9F_s8txYA7VIrKwYsaXbxtK4vBJVFImgrhMeIHrJz7K1o308P8nhGDz5o_q68HIdIlKMerD1dzs6IXQyvJPzkjveThL0ZeZDmAyA
+https://capstone-for-nd-udacity.onrender.com/food-items-detail
+http://127.0.0.1:5000/food-items-detail
+This endpoint accepts get requests and returns JSON data about our food items
+Everyone who owns the Barista and Manager roles has access to it
 
+https://capstone-for-nd-udacity.onrender.com/the-food-detail
+http://127.0.0.1:5000/the-food-detail
+This endpoint accepts get requests and returns JSON data about our food items
+Everyone who owns the Barista and Manager roles has access to it
 
+https://capstone-for-nd-udacity.onrender.com/the-food
+http://127.0.0.1:5000/the-food
+This endpoint accepts post requests and adds data to our food list, and the data must be sent in a way (Content-Type=application/json) and the object must contain "name" and "rate_it", which is the id number of the food item to which the dish belongs, and if the operation succeeds, it will return Data in JSON format about our menu, and if it fails, it will return an error and its cause
+Only those who own the role manager have access to it
 
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVaNUVKVHlkbDZQNnBOOEVYZ3FmWiJ9.eyJpc3MiOiJodHRwczovL21vYXoudWsuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY0ZWJhMDUwOTcyMGRjZDIwYTIyNTc1NSIsImF1ZCI6InJlc3RhdXJhbnQiLCJpYXQiOjE2OTMyNTIxNTAsImV4cCI6MTY5MzMzODU1MCwiYXpwIjoiRHJpYlMya1ZpYmY5U0ZrY1RGTm1Pb1RXUVROQTFXd0QiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDpkYXRhIl19.YFWvJyI5cuvEaxvA7ybzZXgdXG2AzLxzF4fZ7wpqfy6lAEenV0ZDPtDKDNwF4Vsdlde74-mT0MMkEnRzGT0i1lGVrNKNULdnrU88gVz_gq2pvjTYLdWP1IBb_3UvBnlW-5luEUCX9-iECuR-VtTauFsss1Ck9XhDWl5InzkVf0o6zGqqVw5eqYtz8pP8wEXofQfOv48bKgxPhFu3TWPI5RQE5VaR2cvIZQ4Nsm_sg_sC-OuCiaPmWrNzzYD39qtq7HTNqdYPQhax7rIVbdgwnWjIerHJ4_FRBGgIMeXrooQ_R9HV3Hk4ZJtB_ueCkGVI3dXjcjPQ_xcQK7ifZsrtqA
+https://capstone-for-nd-udacity.onrender.com/food-items
+http://127.0.0.1:5000/food-items
+This endpoint accepts post requests and adds data to our food items, and the data must be sent in a way (Content-Type=application/json), and the object must contain "type", which is the name of the item. Returns an error and its cause
+Only those who own the role manager have access to it
+
+https://capstone-for-nd-udacity.onrender.com//the-food/<int:id>
+http://127.0.0.1:5000//the-food/<int:id>
+This endpoint accepts PATCH requests and modifies data for a dish from our menu and ends with the id
+  For the element that we want to modify, the data must be sent in a way (Content-Type=application/json), and the object must contain "name" and "rate_it", which is the id number of the food item to which the dish belongs. If the process is successful, it returns data in JSON format about the menu What we have, and if it fails, it returns an error and its cause
+Only those who own the role manager have access to it
+
+https://capstone-for-nd-udacity.onrender.com/food-items/<int:id>
+http://127.0.0.1:5000/food-items/<int:id>
+This endpoint accepts PATCH requests and edits data for one of our food items and ends with the id number
+  For the element that we want to modify, the data must be sent in a way (Content-Type=application/json), and the object must contain a "type", which is the name of the food item.
+Only those who own the role manager have access to it
+
+https://capstone-for-nd-udacity.onrender.com/food-items/<int:id>
+http://127.0.0.1:5000/food-items/<int:id>
+This endpoint accepts DELETE requests, deleting the element whose id ends with the endpoint
+   If the process succeeds, it will return data in JSON format about the number of the deleted element, and if it fails, it will return an error and its cause
+Only those who own the role manager have access to it
+
+https://capstone-for-nd-udacity.onrender.com/the-food/<int:id>
+http://127.0.0.1:5000/the-food/<int:id>
+This endpoint accepts DELETE requests, deleting the element whose id ends with the endpoint
+   If the process succeeds, it will return data in JSON format about the number of the deleted element, and if it fails, it will return an error and its cause
+Only those who own the role manager have access to it

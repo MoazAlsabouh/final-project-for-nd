@@ -7,12 +7,16 @@ from dotenv import load_dotenv
 
 
 
-app = Flask(__name__)
-setup_db(app)
-CORS(app)
-load_dotenv()
+def create_app():
+    app = Flask(__name__)
+    setup_db(app)
+    CORS(app)
+    load_dotenv()
+    return app
 
-# with app.app_context(): 
-#     db_drop_and_create_all()
+app = create_app()
+
+with app.app_context(): 
+    db_drop_and_create_all()
 
 from my_app import routes
