@@ -1,83 +1,464 @@
-# final-project-for-nd
-.login here
-https://moaz.uk.auth0.com/authorize?audience=restaurant&response_type=token&client_id=DribS2kVibf9SFkcTFNmOoTWQTNA1WwD&redirect_uri=https://capstone-for-nd-udacity.onrender.com/
+# restaurant API backend 
 
+## About
 
-'''
-Barista account
-User: barista2@udacity.com
-password: udacity123*
+I didn't have enough time to create a complete website using Vue.js, so I created a restaurant management system that uploads the available food items (breakfast, lunch, dessert, etc....) and sends only the name of the item and stores it in the database under the name "type".
+Also, the person responsible for the restaurant raises the food dishes available to them and sends the name of the dish "name" and the type to which it belongs "rate_it", which is the 'ID' number of the item to which it belongs, and the person responsible for the restaurant can amend or delete items and dishes.
+As for restaurant customers, they can retrieve lists of food items and dishes
+There are two ranks, the first has the right to make all modifications (Manager), and the second has the right to read data only (Barista)
+Most of the ideas wrote their own codes for previous projects, so some of the codes did not need to be modified, such as user verification, and others I modified to suit my idea, and in the future, God willing, I will create the front end and develop the project further
 
-this role acsees onle get
+The endpoints and how to send requests to these endpoints for products and items are described in the 'Endpoint Library' section of the README.
 
-Manager account
-User: restaurant_manager@udacity.com
-password: udacity123*
+All endpoints need to be tested using curl or postman since there is no frontend for the app yet.
 
-this role acsees get , post, path and delete
-'''
+## Getting Started
 
-I did not have enough time to build a complete website with Vue.js, so I made a restaurant management system that contains food items and the food itself. There are two ranks, the first is entitled to make all the modifications, and the second can only read the data
-Most of the ideas wrote their code for previous projects, so some of the codes did not need to be modified, such as verifying the user, and others I modified them to suit my idea and in the future, God willing, I will create a front-end and develop the project further
-All tests are in Postman's file
+### Installing Dependencies
 
-link in render host
+#### Python 3.7
+
+Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
+
+#### PIP Dependencies
+
+In the warranty-tracker directory, run the following to install all necessary dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+This will install all of the required packages.
+
+## Running the server
+
+To run the server, execute:
+```
+python3 app.py
+```
+We can now also open the application via Heroku using the URL:
 https://capstone-for-nd-udacity.onrender.com/
 
-github repo
-https://github.com/MoazAlsabouh/final-project-for-nd
+The live application can only be used to generate tokens via Auth0 [login here](https://moaz.uk.auth0.com/authorize?audience=restaurant&response_type=token&client_id=DribS2kVibf9SFkcTFNmOoTWQTNA1WwD&redirect_uri=https://capstone-for-nd-udacity.onrender.com/), the endpoints have to be tested using curl or Postman 
+using the token since I did not build a frontend for the application.
 
-1-
+
+## API ARCHITECTURE AND TESTING
+### Endpoint Library
+
+@app.errorhandler decorators were used to format error responses as JSON objects. Custom @requires_auth decorator were used for Authorization based
+on roles of the user. Two roles are assigned to this API: 'Barista' and 'Manager'. The 'Barista' role is assigned by default when someone creates an account
+from the login page, while the 'Manager' role is already pre-assigned to certain users.
+
+
+A token needs to be passed to each endpoint. 
+The following only works for / endpoints:
+The token can be retrived by following these steps:
+1. Go to [login here](https://moaz.uk.auth0.com/authorize?audience=restaurant&response_type=token&client_id=DribS2kVibf9SFkcTFNmOoTWQTNA1WwD&redirect_uri=https://capstone-for-nd-udacity.onrender.com/),
+2. Click on Login and enter any credentials into the Auth0 login page. The role is automatically assigned by Auth0. 
+   Alternatively, sample account that has already been created can be used:
+   -Barista account
+   ```
+      User: barista2@udacity.com
+      password: udacity123*
+    ```
+    -Manager account
+    ```
+      User: restaurant_manager@udacity.com
+      password: udacity123*
+    ```
+
+#### GET '/food-items-detail'
+Returns all the food items in the restaurant and the success value
+curl -i -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" https://capstone-for-nd-udacity.onrender.com/food-items-detail
+
+OR
+
+curl -i -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" http://localhost:5000/food-items-detail
+
+Sample response output:
+```
+{
+    "food_items": [
+        {
+            "id": 1,
+            "type": "fast food"
+        },
+        {
+            "id": 2,
+            "type": "lunch"
+        },
+        {
+            "id": 3,
+            "type": "dinner"
+        },
+        {
+            "id": 4,
+            "type": "refreshment"
+        },
+        {
+            "id": 5,
+            "type": "desalination"
+        }
+    ],
+    "success": true
+}
+```
+
+#### POST '/food-items'
+Return all food items in the restaurant in addition to the new items and the value of success
+curl https://capstone-for-nd-udacity.onrender.com/food-items -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"type": "sundae"}'
+
+OR
+
+curl http://localhost:5000/food-items -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"type": "sundae"}'
+
+Sample response output:
+```
+{
+    "food_items": [
+        {
+            "id": 1,
+            "type": "fast food"
+        },
+        {
+            "id": 2,
+            "type": "lunch"
+        },
+        {
+            "id": 3,
+            "type": "dinner"
+        },
+        {
+            "id": 4,
+            "type": "refreshment"
+        },
+        {
+            "id": 5,
+            "type": "desalination"
+        },
+        {
+            "id": 6,
+            "type": "sundae"
+        }
+    ],
+    "success": true
+}
+```
+
+#### PATCH '/food-items/\<int:id\>'
+Returns all items in the restaurant, in addition to the updated items and the success value
+Sample curl:
+curl https://capstone-for-nd-udacity.onrender.com/food-items/1 -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"type":"Eat fast"}'
+
+OR
+
+curl http://localhost:5000/food-items/1 -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"type":"Eat fast"}'
+
+Sample response output:
+```
+{
+    "food_items": [
+        {
+            "id": 1,
+            "type": "Eat fast"
+        },
+        {
+            "id": 2,
+            "type": "lunch"
+        },
+        {
+            "id": 3,
+            "type": "dinner"
+        },
+        {
+            "id": 4,
+            "type": "refreshment"
+        },
+        {
+            "id": 5,
+            "type": "desalination"
+        },
+        {
+            "id": 6,
+            "type": "sundae"
+        }
+    ],
+    "success": true
+}
+```
+
+#### DELETE '/food-items/\<int:id\>'
+Returns the ID number of the item to be deleted along with a success status
+curl https://capstone-for-nd-udacity.onrender.com/food-items/1 -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}"
+
+OR
+
+curl http://localhost:5000/food-items/1 -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}"
+
+Sample response output:
+```
+{
+    "delete": 1,
+    "success": true
+}
+```
+
+#### GET '/the-food-detail'
+Returns all food dishes in the restaurant and the success value
+curl -i -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" https://capstone-for-nd-udacity.onrender.com/the-food-detail
+
+OR
+
+curl -i -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" http://localhost:5000/the-food-detail
+
+Sample response output:
+```
+{
+    "success": true,
+    "the_food": [
+        {
+            "id": 1,
+            "name": "Cheese pies",
+            "type": "fast food"
+        },
+        {
+            "id": 2,
+            "name": "Falafel",
+            "type": "fast food"
+        },
+        {
+            "id": 3,
+            "name": "Shawarma",
+            "type": "fast food"
+        },
+        {
+            "id": 4,
+            "name": "Mansaf meat",
+            "type": "lunch"
+        },
+        {
+            "id": 5,
+            "name": "Grilled kibbeh",
+            "type": "lunch"
+        },
+        {
+            "id": 6,
+            "name": "Fava Beans",
+            "type": "dinner"
+        },
+        {
+            "id": 7,
+            "name": "Homs rosary",
+            "type": "dinner"
+        },
+        {
+            "id": 8,
+            "name": "Mango juice",
+            "type": "refreshment"
+        },
+        {
+            "id": 9,
+            "name": "Soft drinks",
+            "type": "refreshment"
+        },
+        {
+            "id": 10,
+            "name": "cupcake",
+            "type": "desalination"
+        }
+    ]
+}
+```
+
+#### POST '/the-food'
+Return all food dishes in the restaurant, in addition to the new dishes and the value of success
+curl https://capstone-for-nd-udacity.onrender.com/the-food -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"name":"meet", "rate_it": "2"}'
+
+OR
+
+curl http://localhost:5000/the-food -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"name":"meet", "rate_it": "2"}'
+
+Sample response output:
+```
+{
+    "success": true,
+    "the_food": [
+        {
+            "id": 1,
+            "name": "Cheese pies",
+            "type": "fast food"
+        },
+        {
+            "id": 2,
+            "name": "Falafel",
+            "type": "fast food"
+        },
+        {
+            "id": 3,
+            "name": "Shawarma",
+            "type": "fast food"
+        },
+        {
+            "id": 4,
+            "name": "Mansaf meat",
+            "type": "lunch"
+        },
+        {
+            "id": 5,
+            "name": "Grilled kibbeh",
+            "type": "lunch"
+        },
+        {
+            "id": 6,
+            "name": "Fava Beans",
+            "type": "dinner"
+        },
+        {
+            "id": 7,
+            "name": "Homs rosary",
+            "type": "dinner"
+        },
+        {
+            "id": 8,
+            "name": "Mango juice",
+            "type": "refreshment"
+        },
+        {
+            "id": 9,
+            "name": "Soft drinks",
+            "type": "refreshment"
+        },
+        {
+            "id": 10,
+            "name": "cupcake",
+            "type": "desalination"
+        },
+        {
+            "id": 11,
+            "name": "meet",
+            "type": "lunch"
+        }
+    ]
+}
+```
+
+#### PATCH 'the-food/\<int:id\>'
+Returns all the dishes in the restaurant in addition to the updated dishes and the success value
+Sample curl:
+curl https://capstone-for-nd-udacity.onrender.com/the-food/1 -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"name":"Cheese", "rate_it": "2"}'
+
+OR
+
+curl http://localhost:5000/the-food/1 -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"name":"Cheese", "rate_it": "2"}'
+
+Sample response output:
+```
+{
+    "success": true,
+    "the_food": [
+        {
+            "id": 1,
+            "name": "Cheese",
+            "type": "lunch"
+        },
+        {
+            "id": 2,
+            "name": "Falafel",
+            "type": "Eat fast"
+        },
+        {
+            "id": 3,
+            "name": "Shawarma",
+            "type": "Eat fast"
+        },
+        {
+            "id": 4,
+            "name": "Mansaf meat",
+            "type": "lunch"
+        },
+        {
+            "id": 5,
+            "name": "Grilled kibbeh",
+            "type": "lunch"
+        },
+        {
+            "id": 6,
+            "name": "Fava Beans",
+            "type": "dinner"
+        },
+        {
+            "id": 7,
+            "name": "Homs rosary",
+            "type": "dinner"
+        },
+        {
+            "id": 8,
+            "name": "Mango juice",
+            "type": "refreshment"
+        },
+        {
+            "id": 9,
+            "name": "Soft drinks",
+            "type": "refreshment"
+        },
+        {
+            "id": 10,
+            "name": "cupcake",
+            "type": "desalination"
+        },
+        {
+            "id": 11,
+            "name": "meet",
+            "type": "lunch"
+        }
+    ]
+}
+```
+
+#### DELETE '/the-food/\<int:id\>'
+Returns the ID number of the item to be deleted along with a success status
+curl https://capstone-for-nd-udacity.onrender.com/the-food/1 -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}"
+
+OR
+
+curl http://localhost:5000/the-food/1 -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}"
+
+Sample response output:
+```
+{
+    "delete": 1,
+    "success": true
+}
+```
+
+## Testing
+There are 16 unittests in test_app.py. To run this file use:
+```
+python -m unittest my_app.test_app
+```
+The tests include one test for expected success and error behavior for each endpoint, and tests demonstrating role-based access control, 
+where all endpoints are tested with and without the correct authorization.
+Further, the file 'final-project-nd.postman_collection.json' contains postman tests containing tokens for specific roles.
+To run this file, follow the steps:
+1. Go to postman application.
+2. Load the collection --> Import -> directory/final-project-nd.postman_collection.json
+3. Click on the runner, select the collection and run all the tests.
+
+## THIRD-PARTY AUTHENTICATION
+#### auth.py
+Auth0 is set up and running. The following configurations are in a .env file which is exported by the app:
+- The Auth0 Domain Name
+- The JWT code signing secret
+- The Auth0 Client ID
+The JWT token contains the permissions for the 'Barista ' and 'Manager ' roles.
+
+## DEPLOYMENT
+The app is hosted live on render  at the URL: 
 https://capstone-for-nd-udacity.onrender.com/
-http://127.0.0.1:5000/
-This endpoint is unsecured and public with a link to login and get a token
 
--2
-https://capstone-for-nd-udacity.onrender.com/the-food-detail
-http://127.0.0.1:5000/the-food-detail
-This endpoint accepts get requests and returns JSON data about our menu
-Everyone who owns the Barista and Manager roles has access to it
+However, there is no frontend for this app yet, and it can only be presently used to authenticate using Auth0 by entering
+credentials and retrieving a fresh token to use with curl or postman.
 
-https://capstone-for-nd-udacity.onrender.com/food-items-detail
-http://127.0.0.1:5000/food-items-detail
-This endpoint accepts get requests and returns JSON data about our food items
-Everyone who owns the Barista and Manager roles has access to it
-
-https://capstone-for-nd-udacity.onrender.com/the-food-detail
-http://127.0.0.1:5000/the-food-detail
-This endpoint accepts get requests and returns JSON data about our food items
-Everyone who owns the Barista and Manager roles has access to it
-
-https://capstone-for-nd-udacity.onrender.com/the-food
-http://127.0.0.1:5000/the-food
-This endpoint accepts post requests and adds data to our food list, and the data must be sent in a way (Content-Type=application/json) and the object must contain "name" and "rate_it", which is the id number of the food item to which the dish belongs, and if the operation succeeds, it will return Data in JSON format about our menu, and if it fails, it will return an error and its cause
-Only those who own the role manager have access to it
-
-https://capstone-for-nd-udacity.onrender.com/food-items
-http://127.0.0.1:5000/food-items
-This endpoint accepts post requests and adds data to our food items, and the data must be sent in a way (Content-Type=application/json), and the object must contain "type", which is the name of the item. Returns an error and its cause
-Only those who own the role manager have access to it
-
-https://capstone-for-nd-udacity.onrender.com//the-food/<int:id>
-http://127.0.0.1:5000//the-food/<int:id>
-This endpoint accepts PATCH requests and modifies data for a dish from our menu and ends with the id
-  For the element that we want to modify, the data must be sent in a way (Content-Type=application/json), and the object must contain "name" and "rate_it", which is the id number of the food item to which the dish belongs. If the process is successful, it returns data in JSON format about the menu What we have, and if it fails, it returns an error and its cause
-Only those who own the role manager have access to it
-
-https://capstone-for-nd-udacity.onrender.com/food-items/<int:id>
-http://127.0.0.1:5000/food-items/<int:id>
-This endpoint accepts PATCH requests and edits data for one of our food items and ends with the id number
-  For the element that we want to modify, the data must be sent in a way (Content-Type=application/json), and the object must contain a "type", which is the name of the food item.
-Only those who own the role manager have access to it
-
-https://capstone-for-nd-udacity.onrender.com/food-items/<int:id>
-http://127.0.0.1:5000/food-items/<int:id>
-This endpoint accepts DELETE requests, deleting the element whose id ends with the endpoint
-   If the process succeeds, it will return data in JSON format about the number of the deleted element, and if it fails, it will return an error and its cause
-Only those who own the role manager have access to it
-
-https://capstone-for-nd-udacity.onrender.com/the-food/<int:id>
-http://127.0.0.1:5000/the-food/<int:id>
-This endpoint accepts DELETE requests, deleting the element whose id ends with the endpoint
-   If the process succeeds, it will return data in JSON format about the number of the deleted element, and if it fails, it will return an error and its cause
-Only those who own the role manager have access to it
+Take a look at the GitHub repository if you like
+[github repo](https://github.com/MoazAlsabouh/final-project-for-nd)
