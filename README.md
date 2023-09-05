@@ -70,11 +70,14 @@ The token can be retrived by following these steps:
 
 #### GET '/food-items-detail'
 Returns all the food items in the restaurant and the success value
+```
 curl -i -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" https://capstone-for-nd-udacity.onrender.com/food-items-detail
+```
 
 OR
-
+```
 curl -i -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" http://localhost:5000/food-items-detail
+```
 
 Sample response output:
 ```
@@ -107,11 +110,15 @@ Sample response output:
 
 #### POST '/food-items'
 Return all food items in the restaurant in addition to the new items and the value of success
+```
 curl https://capstone-for-nd-udacity.onrender.com/food-items -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"type": "sundae"}'
+```
 
 OR
 
+```
 curl http://localhost:5000/food-items -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"type": "sundae"}'
+```
 
 Sample response output:
 ```
@@ -149,11 +156,15 @@ Sample response output:
 #### PATCH '/food-items/\<int:id\>'
 Returns all items in the restaurant, in addition to the updated items and the success value
 Sample curl:
+```
 curl https://capstone-for-nd-udacity.onrender.com/food-items/1 -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"type":"Eat fast"}'
+```
 
 OR
 
+```
 curl http://localhost:5000/food-items/1 -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"type":"Eat fast"}'
+```
 
 Sample response output:
 ```
@@ -190,11 +201,15 @@ Sample response output:
 
 #### DELETE '/food-items/\<int:id\>'
 Returns the ID number of the item to be deleted along with a success status
+```
 curl https://capstone-for-nd-udacity.onrender.com/food-items/1 -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}"
+```
 
 OR
 
+```
 curl http://localhost:5000/food-items/1 -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}"
+```
 
 Sample response output:
 ```
@@ -206,11 +221,15 @@ Sample response output:
 
 #### GET '/the-food-detail'
 Returns all food dishes in the restaurant and the success value
+```
 curl -i -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" https://capstone-for-nd-udacity.onrender.com/the-food-detail
+```
 
 OR
 
+```
 curl -i -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" http://localhost:5000/the-food-detail
+```
 
 Sample response output:
 ```
@@ -273,11 +292,15 @@ Sample response output:
 
 #### POST '/the-food'
 Return all food dishes in the restaurant, in addition to the new dishes and the value of success
+```
 curl https://capstone-for-nd-udacity.onrender.com/the-food -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"name":"meet", "rate_it": "2"}'
+```
 
 OR
 
+```
 curl http://localhost:5000/the-food -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"name":"meet", "rate_it": "2"}'
+```
 
 Sample response output:
 ```
@@ -346,11 +369,15 @@ Sample response output:
 #### PATCH 'the-food/\<int:id\>'
 Returns all the dishes in the restaurant in addition to the updated dishes and the success value
 Sample curl:
+```
 curl https://capstone-for-nd-udacity.onrender.com/the-food/1 -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"name":"Cheese", "rate_it": "2"}'
+```
 
 OR
 
+```
 curl http://localhost:5000/the-food/1 -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}" -d '{"name":"Cheese", "rate_it": "2"}'
+```
 
 Sample response output:
 ```
@@ -418,12 +445,13 @@ Sample response output:
 
 #### DELETE '/the-food/\<int:id\>'
 Returns the ID number of the item to be deleted along with a success status
+```
 curl https://capstone-for-nd-udacity.onrender.com/the-food/1 -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}"
-
+```
 OR
-
+```
 curl http://localhost:5000/the-food/1 -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer {INSERT_TOKEN_HERE}"
-
+```
 Sample response output:
 ```
 {
